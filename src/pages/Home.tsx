@@ -39,15 +39,15 @@ export default function Home() {
       {/* Section heading */}
       <div style={{ padding: '20px 16px 0', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <span className="section-label">Explore Districts</span>
-        <span style={{ fontSize: 10, color: 'var(--text-muted)', letterSpacing: '0.06em' }}>
+        <span style={{ fontFamily: 'var(--font-body)', fontSize: 10, color: 'var(--text-muted)', letterSpacing: '0.06em' }}>
           {groups.length} groups
         </span>
       </div>
 
       {/* Group grid */}
       <div className="home-grid">
-        {groups.map((group) => (
-          <GroupCard key={group.id} group={group} />
+        {groups.map((group, i) => (
+          <GroupCard key={group.id} group={group} index={i} />
         ))}
       </div>
 
@@ -55,6 +55,7 @@ export default function Home() {
       <div style={{
         padding: '24px 16px 0',
         textAlign: 'center',
+        fontFamily: 'var(--font-body)',
         fontSize: 11,
         color: 'var(--text-muted)',
         letterSpacing: '0.04em',

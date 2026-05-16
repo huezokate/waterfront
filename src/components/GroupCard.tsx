@@ -3,32 +3,31 @@ import type { Group } from '../data/locations';
 
 interface Props {
   group: Group;
+  index?: number;
 }
 
-// Each group gets a unique cinematic gradient for its card background
 const GROUP_GRADIENTS: Record<string, string> = {
-  waterfront: 'linear-gradient(160deg, #0a1220 0%, #0d1f35 40%, #091522 100%)',
-  cultural:   'linear-gradient(160deg, #1a1208 0%, #2e1e08 40%, #1a0f05 100%)',
-  parks:      'linear-gradient(160deg, #0a160e 0%, #0d2014 40%, #071009 100%)',
-  civic:      'linear-gradient(160deg, #1a0808 0%, #2e1010 40%, #120606 100%)',
+  waterfront: 'linear-gradient(160deg, #aad7ee 0%, #5a9cc0 50%, #2a6a90 100%)',
+  cultural:   'linear-gradient(160deg, #f6e8b0 0%, #d4a830 50%, #a07828 100%)',
+  parks:      'linear-gradient(160deg, #b8dfc8 0%, #4a9e70 50%, #2a7248 100%)',
+  civic:      'linear-gradient(160deg, #f5c0a8 0%, #da4c29 50%, #a03018 100%)',
 };
 
-export default function GroupCard({ group }: Props) {
+export default function GroupCard({ group, index = 0 }: Props) {
   const gradient = GROUP_GRADIENTS[group.id] ?? GROUP_GRADIENTS['waterfront'];
+  const delay = `${index * 0.07}s`;
 
   return (
-    <Link to={`/group/${group.id}`} className="group-card">
-      {/* Background layers */}
+    <Link
+      to={`/group/${group.id}`}
+      className="group-card animate-fade-up"
+      style={{ animationDelay: delay }}
+      aria-label={`${group.name}: ${group.tagline}. ${group.locationCount} locations, ${group.eraRange[0]} to ${group.eraRange[1]}.`}
+    >
       <div className="group-card__bg">
-        <div
-          className="group-card__gradient"
-          style={{ background: gradient }}
-        />
-        <div className="group-card__grain-overlay" />
-        <div className="group-card__overlay" />
+        <div className="group-card__gradient" style={{ background: gradient }} aria-hidden="true" />
+        <div className="group-card__overlay" aria-hidden="true" />
       </div>
-
-      {/* Content */}
       <div className="group-card__content">
         <div className="group-card__name">{group.name}</div>
         <div className="group-card__tagline">{group.tagline}</div>
@@ -40,24 +39,11 @@ export default function GroupCard({ group }: Props) {
             {group.eraRange[0]}–{group.eraRange[1]}
           </span>
         </div>
-        <div
-          style={{
-            marginTop: 6,
-            fontSize: 10,
-            color: 'var(--text-muted)',
-            letterSpacing: '0.06em',
-            textTransform: 'uppercase',
-          }}
-        >
+        <div style={{ marginTop: 5, fontFamily: 'var(--font-ui)', fontSize: 9, color: 'rgba(246,251,253,0.6)', letterSpacing: '0.08em', textTransform: 'uppercase', fontWeight: 700 }}>
           {group.locationCount} locations
         </div>
       </div>
-
-      {/* Accent color bar */}
-      <div
-        className="group-card__era-bar"
-        style={{ background: group.accentColor }}
-      />
+      <div className="group-card__era-bar" style={{ background: group.accentColor }} aria-hidden="true" />
     </Link>
   );
 }
