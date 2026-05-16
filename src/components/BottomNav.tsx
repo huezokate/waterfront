@@ -8,12 +8,17 @@ export default function BottomNav() {
     return pathname.startsWith(path);
   };
 
+  const routeActive = isActive('/') && !isActive('/scan');
+  const scanActive = isActive('/scan');
+
   return (
-    <nav className="bottom-nav">
+    <nav className="bottom-nav" aria-label="Main navigation">
       {/* Route tab */}
       <Link
         to="/"
-        className={`bottom-nav__tab ${isActive('/') && !isActive('/scan') ? 'active' : ''}`}
+        className={`bottom-nav__tab ${routeActive ? 'active' : ''}`}
+        aria-current={routeActive ? 'page' : undefined}
+        aria-label="Route — browse districts and locations"
       >
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
           <path d="M3 11l19-9-9 19-2-8-8-2z" />
@@ -24,7 +29,9 @@ export default function BottomNav() {
       {/* Lens tab */}
       <Link
         to="/scan"
-        className={`bottom-nav__tab ${isActive('/scan') ? 'active' : ''}`}
+        className={`bottom-nav__tab ${scanActive ? 'active' : ''}`}
+        aria-current={scanActive ? 'page' : undefined}
+        aria-label="Lens — scan a QR code"
       >
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
           <circle cx="12" cy="12" r="3" />
@@ -36,7 +43,11 @@ export default function BottomNav() {
       </Link>
 
       {/* Menu tab */}
-      <button className="bottom-nav__tab">
+      <button
+        className="bottom-nav__tab"
+        aria-label="Open menu"
+        type="button"
+      >
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
           <circle cx="12" cy="5" r="1.5" fill="currentColor" stroke="none" />
           <circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none" />

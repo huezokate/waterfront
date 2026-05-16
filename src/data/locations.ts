@@ -33,12 +33,13 @@ export type Group = {
 };
 
 export const ERA_GRADIENTS: Record<string, string> = {
-  '1850s': 'linear-gradient(160deg, #1a1208 0%, #3d2b10 50%, #1a0f05 100%)',
-  '1890s': 'linear-gradient(160deg, #0f1a12 0%, #1e3320 60%, #0a1008 100%)',
-  '1920s': 'linear-gradient(160deg, #0d0d1a 0%, #1a1a2e 50%, #0a0a14 100%)',
-  '1950s': 'linear-gradient(160deg, #1a0a0a 0%, #2e1a0d 60%, #0f0a08 100%)',
-  '1980s': 'linear-gradient(160deg, #0a1220 0%, #0d1f35 50%, #08101a 100%)',
-  '2020s': 'linear-gradient(160deg, #101418 0%, #1a2028 50%, #0c1014 100%)',
+  '1770s': 'linear-gradient(160deg, #1c1408 0%, #3d2e10 50%, #1a1208 100%)',
+  '1850s': 'linear-gradient(160deg, #1c1408 0%, #3d2e10 50%, #1a1208 100%)',
+  '1890s': 'linear-gradient(160deg, #0e1a10 0%, #1e3820 60%, #0a1208 100%)',
+  '1920s': 'linear-gradient(160deg, #0e0e1c 0%, #1e1e3a 50%, #0a0a14 100%)',
+  '1950s': 'linear-gradient(160deg, #1c0e08 0%, #3a1e10 60%, #140a06 100%)',
+  '1980s': 'linear-gradient(160deg, #0a1420 0%, #142038 50%, #081018 100%)',
+  '2020s': 'linear-gradient(160deg, #101820 0%, #1c2a38 50%, #0c1018 100%)',
 };
 
 export const groups: Group[] = [

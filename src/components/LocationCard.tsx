@@ -13,7 +13,11 @@ export default function LocationCard({ location }: Props) {
   const gradient = ERA_GRADIENTS[gradientKey] ?? ERA_GRADIENTS['1850s'];
 
   return (
-    <Link to={`/location/${location.id}`} className="location-card">
+    <Link
+      to={`/location/${location.id}`}
+      className="location-card"
+      aria-label={`${location.name}, ${firstEra?.year} to ${lastEra?.year}, ${location.eras.length} eras`}
+    >
       {/* Era color thumbnail */}
       <div
         className="location-card__era-dot"
