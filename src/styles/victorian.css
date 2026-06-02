@@ -310,6 +310,78 @@
 }
 
 /* ============================================================================
+   Then / Now comparison slider (JuxtaposeJS-style wipe)
+   ============================================================================ */
+.vb-thennow {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  border: 1px solid var(--vb-rule);
+  background: var(--vb-ink-ground);
+  touch-action: none;
+  user-select: none;
+  cursor: ew-resize;
+}
+.vb-thennow__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+.vb-thennow__now { filter: none; }          /* "now" plate sits on top, clipped from the left */
+.vb-thennow__then { filter: sepia(0.5) contrast(1.05); }
+.vb-thennow__label {
+  position: absolute;
+  top: 10px;
+  font-family: var(--vb-font-sc);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--vb-gold);
+  background: rgba(26, 22, 17, 0.82);
+  border: 1px solid var(--vb-gold);
+  padding: 4px 9px;
+  pointer-events: none;
+}
+.vb-thennow__label--then { left: 10px; }
+.vb-thennow__label--now  { right: 10px; }
+.vb-thennow__divider {
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 2px;
+  background: var(--vb-gold);
+  transform: translateX(-1px);
+  pointer-events: none;
+}
+.vb-thennow__handle {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: var(--vb-paper);
+  border: 2px solid var(--vb-gold);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--vb-ink);
+  font-size: 16px;
+}
+.vb-thennow__range {       /* visually hidden but keyboard/AT operable */
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  opacity: 0;
+  margin: 0;
+  cursor: ew-resize;
+}
+.vb-thennow__range:focus-visible + .vb-thennow__divider .vb-thennow__handle {
+  outline: 3px solid var(--vb-indigo);
+  outline-offset: 2px;
+}
+
+/* ============================================================================
    "Living image" hero — Ken Burns + grain + sepia→color reveal + flicker
    ============================================================================ */
 .vb-figure {
@@ -497,6 +569,89 @@
 @keyframes vb-stylus { to { transform: scaleX(1); } }
 
 /* ============================================================================
+   Bottom sheet — full side-story (peek → expand)
+   ============================================================================ */
+.vb-sheet-scrim {
+  position: fixed;
+  inset: 0;
+  background: rgba(26, 22, 17, 0.55);
+  z-index: 200;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  animation: vb-fade 0.2s ease;
+}
+.vb-sheet {
+  width: 100%;
+  max-width: 430px;
+  background: var(--vb-paper);
+  border-top-left-radius: 14px;
+  border-top-right-radius: 14px;
+  border-top: 3px double var(--vb-rule);
+  box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.3);
+  padding: 8px 18px 28px;
+  max-height: 52vh;
+  overflow-y: auto;
+  position: relative;
+  animation: vb-slideup 0.3s var(--vb-ease);
+  transition: max-height 0.3s var(--vb-ease);
+}
+.vb-sheet.is-expanded { max-height: 90vh; }
+.vb-sheet__grip {
+  display: block;
+  margin: 2px auto 10px;
+  background: none; border: none; padding: 8px; cursor: pointer;
+  min-height: 24px;
+}
+.vb-sheet__grip span {
+  display: block; width: 40px; height: 4px; border-radius: 2px;
+  background: var(--vb-rule-soft);
+}
+.vb-sheet__close {
+  position: absolute; top: 12px; right: 14px;
+  width: 40px; height: 40px;
+  border: 1px solid var(--vb-rule);
+  background: var(--vb-paper-aged);
+  border-radius: 50%;
+  cursor: pointer; color: var(--vb-ink); font-size: 14px;
+}
+.vb-sheet__kicker {
+  font-family: var(--vb-font-sc); font-size: 10px;
+  letter-spacing: 0.16em; text-transform: uppercase; color: var(--vb-vermilion);
+}
+.vb-sheet__title {
+  font-family: var(--vb-font-display); font-weight: 700;
+  font-size: clamp(21px, 6.4vw, 25px); line-height: 1.15;
+  color: var(--vb-ink); margin: 4px 0 8px;
+}
+.vb-sheet__teaser {
+  font-family: var(--vb-font-body); font-size: 16px;
+  color: var(--vb-ink-soft); line-height: 1.55;
+}
+.vb-sheet__expand {
+  margin-top: 14px; width: 100%; min-height: 48px;
+  background: var(--vb-ink-ground); color: var(--vb-gold);
+  border: none; cursor: pointer;
+  font-family: var(--vb-font-sc); font-size: 12px;
+  letter-spacing: 0.12em; text-transform: uppercase;
+}
+.vb-sheet__img {
+  width: 100%; aspect-ratio: 3 / 2; object-fit: cover;
+  border: 1px solid var(--vb-rule); margin: 16px 0 6px;
+  filter: sepia(0.5) contrast(1.05);
+}
+.vb-sheet__cutline {
+  font-style: italic; font-size: 13px; color: var(--vb-meta); margin-bottom: 14px;
+}
+.vb-sheet__body p { margin-bottom: 12px; }
+.vb-sheet__body .vb-article__body--lead::first-letter {
+  float: left; font-family: var(--vb-font-display); font-size: 3.2em;
+  line-height: 0.74; padding: 6px 8px 0 0; color: var(--vb-vermilion);
+}
+@keyframes vb-slideup { from { transform: translateY(100%); } to { transform: translateY(0); } }
+@keyframes vb-fade { from { opacity: 0; } to { opacity: 1; } }
+
+/* ============================================================================
    Reduced motion — kill all decorative motion, keep static colorized stills
    ============================================================================ */
 @media (prefers-reduced-motion: reduce) {
@@ -504,4 +659,6 @@
   .vb-figure__grain { animation: none !important; }
   .vb-audio__stylus { animation: none !important; }
   .vb-period__events { transition: none !important; }
+  .vb-sheet, .vb-sheet-scrim { animation: none !important; }
+  .vb-sheet { transition: none !important; }
 }

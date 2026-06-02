@@ -48,24 +48,98 @@ function LivingImage({ src, alt }: { src: string; alt: string }) {
   );
 }
 
-/* ── Side-story "column inch" with bottom-disclosure ───────────── */
-function SideStory({ story }: { story: SideStory }) {
-  const [open, setOpen] = useState(false);
+/* ── Then / Now wipe slider (JuxtaposeJS-style) ────────────────── */
+function ThenNow({ thenSrc, nowSrc, thenLabel, nowLabel }: {
+  thenSrc: string; nowSrc: string; thenLabel: string; nowLabel: string;
+}) {
+  const [pos, setPos] = useState(50);
+  return (
+    <div className="vb-thennow">
+      <img className="vb-thennow__img vb-thennow__then" src={thenSrc} alt={thenLabel} />
+      <img
+        className="vb-thennow__img vb-thennow__now"
+        src={nowSrc}
+        alt={nowLabel}
+        style={{ clipPath: `inset(0 0 0 ${pos}%)` }}
+      />
+      <span className="vb-thennow__label vb-thennow__label--then">{thenLabel}</span>
+      <span className="vb-thennow__label vb-thennow__label--now">{nowLabel}</span>
+      {/* invisible full-area range = click-to-position + drag + keyboard, all accessible */}
+      <input
+        className="vb-thennow__range"
+        type="range" min={0} max={100} value={pos}
+        onChange={(e) => setPos(+e.target.value)}
+        aria-label={`Slide to compare ${thenLabel} with ${nowLabel}`}
+      />
+      <div className="vb-thennow__divider" style={{ left: `${pos}%` }}>
+        <div className="vb-thennow__handle" aria-hidden="true">⇄</div>
+      </div>
+    </div>
+  );
+}
+
+/* placeholder body copy — structure-over-content per the brief */
+const LOREM = [
+  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.',
+  'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit.',
+  'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae.',
+];
+
+/* ── Bottom sheet — full side-story (peek → expand) ────────────── */
+function BottomSheet({ story, image, onClose }: { story: SideStory; image: string; onClose: () => void }) {
+  const [expanded, setExpanded] = useState(false);
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [onClose]);
+  return (
+    <div className="vb-sheet-scrim" onClick={onClose}>
+      <div
+        className={`vb-sheet${expanded ? ' is-expanded' : ''}`}
+        role="dialog" aria-modal="true" aria-label={story.title}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button className="vb-sheet__grip" onClick={() => setExpanded((x) => !x)} aria-label={expanded ? 'Collapse' : 'Expand'}>
+          <span />
+        </button>
+        <button className="vb-sheet__close" onClick={onClose} aria-label="Close">✕</button>
+        <div className="vb-sheet__kicker">In Brief · The Full Account</div>
+        <h3 className="vb-sheet__title">{story.title}</h3>
+        <p className="vb-sheet__teaser">{story.body}</p>
+        {expanded ? (
+          <div className="vb-sheet__body">
+            {image && <img className="vb-sheet__img" src={image} alt={story.title} />}
+            {image && <p className="vb-sheet__cutline">— Historic plate from the archive.</p>}
+            {LOREM.map((p, i) => (
+              <p key={i} className={i === 0 ? 'vb-article__body vb-article__body--lead' : 'vb-article__body'}>{p}</p>
+            ))}
+          </div>
+        ) : (
+          <button className="vb-sheet__expand" onClick={() => setExpanded(true)}>Read on ⌃</button>
+        )}
+      </div>
+    </div>
+  );
+}
+
+/* ── Side-story "column inch" — opens the bottom sheet ──────────── */
+function SideStory({ story, onOpen }: { story: SideStory; onOpen: () => void }) {
   return (
     <aside className="vb-sidestory">
       <span className="vb-sidestory__kicker">In Brief</span>
       <div className="vb-sidestory__title">{story.title}</div>
-      {open && <p className="vb-sidestory__body">{story.body}</p>}
-      <button className="vb-sidestory__more" onClick={() => setOpen((o) => !o)} aria-expanded={open}>
+      <p className="vb-sidestory__body">{story.body}</p>
+      <button className="vb-sidestory__more" onClick={onOpen} aria-haspopup="dialog">
         <span className="vb-manicule" aria-hidden="true">☞</span>
-        {open ? 'Close' : 'Read the full account'}
+        Read the full account
       </button>
     </aside>
   );
 }
 
 /* ── Event article block ───────────────────────────────────────── */
-function Article({ ev }: { ev: YBEvent }) {
+function Article({ ev, onOpenStory }: { ev: YBEvent; onOpenStory: (s: SideStory, image: string) => void }) {
   const hero = ev.images[0];
   const heroAlt = `${ev.year} — ${ev.title}`;
   return (
@@ -78,16 +152,19 @@ function Article({ ev }: { ev: YBEvent }) {
         </p>
       )}
       <p className="vb-article__body vb-article__body--lead">{ev.title}.</p>
-      {ev.sideStories.map((s, i) => <SideStory key={i} story={s} />)}
+      {ev.sideStories.map((s, i) => (
+        <SideStory key={i} story={s} onOpen={() => onOpenStory(s, hero ? asset(hero) : '')} />
+      ))}
       <div className="vb-article__end" aria-hidden="true">⁂</div>
     </article>
   );
 }
 
 /* ── Period accordion section ──────────────────────────────────── */
-function PeriodSection({ period, index, open, onToggle, anchorRef }: {
+function PeriodSection({ period, index, open, onToggle, anchorRef, onOpenStory }: {
   period: Period; index: number; open: boolean; onToggle: () => void;
   anchorRef: (el: HTMLDivElement | null) => void;
+  onOpenStory: (s: SideStory, image: string) => void;
 }) {
   const romans = ['I', 'II', 'III', 'IV', 'V'];
   return (
@@ -105,7 +182,7 @@ function PeriodSection({ period, index, open, onToggle, anchorRef }: {
       </button>
       <div className="vb-period__events">
         <div className="vb-period__events-inner">
-          {period.events.map((ev) => <Article key={ev.id} ev={ev} />)}
+          {period.events.map((ev) => <Article key={ev.id} ev={ev} onOpenStory={onOpenStory} />)}
         </div>
       </div>
     </section>
@@ -119,6 +196,7 @@ export default function YerbaBuena() {
   const [openIndex, setOpenIndex] = useState(0);
   const [visited, setVisited] = useState<Set<number>>(() => new Set([0]));
   const [playing, setPlaying] = useState(false);
+  const [sheet, setSheet] = useState<{ story: SideStory; image: string } | null>(null);
   const anchors = useRef<(HTMLDivElement | null)[]>([]);
 
   const markVisited = useCallback((i: number) => {
@@ -157,6 +235,21 @@ export default function YerbaBuena() {
         </p>
       </div>
 
+      {/* Then & Now hero — the signature "this happened here" moment */}
+      <section className="vb-article" style={{ borderTop: 'none', paddingBottom: 6 }}>
+        <div className="vb-article__dateline">Then &amp; Now · the cove beneath your feet —</div>
+        <ThenNow
+          thenSrc={asset('/historic/4-1-4a-1848-view-of-sf-harbor-house-count.jpg')}
+          nowSrc={asset('/historic/4-5-5a-2020-buried-ships-of-sf.jpeg')}
+          thenLabel="Then · 1848"
+          nowLabel="Now · 2020"
+        />
+        <p className="vb-cutline">
+          Drag to reveal the buried ships beneath today’s Financial District — the cove was
+          filled within a generation.
+        </p>
+      </section>
+
       {/* Printer's-rule timeline scrubber */}
       <nav className="vb-timeline" aria-label="Jump to a period">
         <div className="vb-timeline__track">
@@ -185,6 +278,7 @@ export default function YerbaBuena() {
           open={i === openIndex}
           onToggle={() => { const next = i === openIndex ? -1 : i; setOpenIndex(next); markVisited(next); }}
           anchorRef={(el) => { anchors.current[i] = el; }}
+          onOpenStory={(s, image) => setSheet({ story: s, image })}
         />
       ))}
 
@@ -207,6 +301,11 @@ export default function YerbaBuena() {
           <div className="vb-audio__stylus" aria-hidden="true" />
         </div>
       </div>
+
+      {/* Bottom sheet — full side-story */}
+      {sheet && (
+        <BottomSheet story={sheet.story} image={sheet.image} onClose={() => setSheet(null)} />
+      )}
     </div>
   );
 }
