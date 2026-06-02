@@ -2,6 +2,7 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/victorian.css';
 import rawData from '../data/yerbaBuena.json';
+import { SF_LOCATIONS } from '../data/sfLocations';
 
 /* ── Types ─────────────────────────────────────────────────── */
 interface SideStory { eventId: string; title: string; body: string; }
@@ -218,7 +219,7 @@ export default function YerbaBuena() {
       {/* Masthead */}
       <header className="vb-masthead">
         <div className="vb-masthead__kicker">
-          <Link to="/" style={{ color: 'inherit', textDecoration: 'none' }}>← The TimeLens Gazette</Link>
+          <Link to="/explore" style={{ color: 'inherit', textDecoration: 'none' }}>← The TimeLens Gazette</Link>
         </div>
         <h1 className="vb-masthead__name">The Yerba Buena</h1>
         <div className="vb-masthead__rule">
@@ -227,6 +228,13 @@ export default function YerbaBuena() {
           <span className="vb-fleuron">❦</span>
         </div>
       </header>
+
+      {/* Breadcrumb — anti-lost context for the deep hierarchy */}
+      <nav className="vb-crumb" aria-label="Breadcrumb">
+        <Link to="/explore">Explore</Link>
+        <span className="vb-crumb__sep" aria-hidden="true">›</span>
+        <span>Yerba Buena Cove</span>
+      </nav>
 
       <div className="vb-dek">
         <p className="vb-dek__lede">
@@ -281,6 +289,20 @@ export default function YerbaBuena() {
           onOpenStory={(s, image) => setSheet({ story: s, image })}
         />
       ))}
+
+      {/* Up next — guided off-ramp to keep browsing momentum */}
+      <section className="vb-upnext">
+        <div className="vb-upnext__label">Up Next · More of the City</div>
+        <Link className="vb-loc-card" to="/explore">
+          <img className="vb-loc-card__img" src={asset(SF_LOCATIONS[1].hero)} alt={SF_LOCATIONS[1].name} />
+          <div className="vb-loc-card__body">
+            <div className="vb-loc-card__name">{SF_LOCATIONS[1].name}</div>
+            <div className="vb-loc-card__meta">{SF_LOCATIONS[1].neighborhood} · {SF_LOCATIONS[1].range}</div>
+            <div className="vb-loc-card__dek">{SF_LOCATIONS[1].dek}</div>
+            <span className="vb-badge-soon">Browse all walks →</span>
+          </div>
+        </Link>
+      </section>
 
       {/* Phonograph audio bar (mock) */}
       <div className={`vb-audio${playing ? ' is-playing' : ''}`}>
