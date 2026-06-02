@@ -1,0 +1,331 @@
+{
+  "location": {
+    "id": "4",
+    "name": "Yerba Buena Cove",
+    "range": "1833 – 2027",
+    "city": "San Francisco"
+  },
+  "periods": [
+    {
+      "id": "4.1",
+      "range": "1833 – 1849",
+      "title": "Yerba Buena becomes San Francisco",
+      "events": [
+        {
+          "id": "4.1.1",
+          "year": "1833–1845",
+          "title": "Richardson founds trading post, Mexican authority, new customs house",
+          "images": [
+            "/historic/4-1-1a-1797-la-perous-sf-bay.jpg",
+            "/historic/4-1-1b-1828-bechy-map-of-sf-bay.jpg",
+            "/historic/4-1-1d-sand-dunes.webp"
+          ],
+          "sideStories": []
+        },
+        {
+          "id": "4.1.2",
+          "year": "1846",
+          "title": "Montgomery lands, plants flag, declares land for USA",
+          "images": [
+            "/historic/4-1-2b-1939-dynorama-of-yerba-buena.jpg"
+          ],
+          "sideStories": []
+        },
+        {
+          "id": "4.1.3",
+          "year": "1847",
+          "title": "Yerba Buena village changes name to San Francisco",
+          "images": [],
+          "sideStories": []
+        },
+        {
+          "id": "4.1.4",
+          "year": "1848",
+          "title": "Gold discovered in Sacramento, 60 miles east of SF",
+          "images": [
+            "/historic/4-1-4a-1848-view-of-sf-harbor-house-count.jpg",
+            "/historic/4-1-4b-1848-sf-view-from-russian-hill.jpeg",
+            "/historic/4-1-4c-1848-upper-lower-mines.jpeg"
+          ],
+          "sideStories": [
+            {
+              "eventId": "4.1.4",
+              "title": "The gold was 60 miles east",
+              "body": "More gold was actually found near Sacramento than in San Francisco itself in 1848 — yet the city became the gateway that the world rushed through."
+            }
+          ]
+        },
+        {
+          "id": "4.1.5",
+          "year": "1849",
+          "title": "San Francisco's population booms from 850 to 25,000 in a year",
+          "images": [
+            "/historic/4-1-5a-1849-eddy-1st-edition-of-sf.jpg",
+            "/historic/4-1-5b-1849-san-francisco-view-from-yerba-buena-cover-rincon.jpeg"
+          ],
+          "sideStories": []
+        }
+      ]
+    },
+    {
+      "id": "4.2",
+      "range": "1850 – 1870",
+      "title": "San Francisco becomes a historic boomtown",
+      "events": [
+        {
+          "id": "4.2.1",
+          "year": "1850–1851",
+          "title": "California becomes a state; 350,000 people flow through SF",
+          "images": [
+            "/historic/4-2-1a-1850-san-francisco-portsmouth-sq-east-west-views.jpg",
+            "/historic/4-2-1b-1850-sf-bay-and-delta.jpg"
+          ],
+          "sideStories": []
+        },
+        {
+          "id": "4.2.2",
+          "year": "1851–1852",
+          "title": "Fire and the Committee of Vigilance",
+          "images": [
+            "/historic/4-2-2a-1851-quirot-sf-with-hand-legend.jpg",
+            "/historic/4-2-2b-1851-may-4th-fire-from-long-wharf-commercial-st.jpg",
+            "/historic/4-2-2c-1851-may-4th-fire-burning-west-of-longwharf-at-batter.jpg",
+            "/historic/4-2-2d-1851-view-north-from-powell-to-tel-hill-in-san-franci.jpg",
+            "/historic/4-2-2f-1851-vigilance-hanging-on-market-st-wharf.png",
+            "/historic/4-2-2f-1852-san-francisco-eddy-redline.jpg"
+          ],
+          "sideStories": [
+            {
+              "eventId": "4.2.2",
+              "title": "Vigilance on the wharf",
+              "body": "Amid the fires of 1851, the Committee of Vigilance took the law into its own hands — staging public hangings at Portsmouth Square and the Market Street wharf."
+            }
+          ]
+        },
+        {
+          "id": "4.2.3",
+          "year": "1853–1855",
+          "title": "Reconstruction",
+          "images": [
+            "/historic/4-2-3a-1853-1st-uscs-sf.jpg",
+            "/historic/4-2-3b-1853-butlersf-boardwalks.png",
+            "/historic/4-2-3c-1850-sf-bay-with-abandoned-ships.jpeg",
+            "/historic/4-2-3d-1852-sf-bird-s-eye-view-west.jpg",
+            "/historic/4-2-3e-1963-buried-ships-map.jpg"
+          ],
+          "sideStories": []
+        },
+        {
+          "id": "4.2.4",
+          "year": "1856–1865",
+          "title": "Maritime period, water lots, silver rush",
+          "images": [
+            "/historic/4-2-4a-1857-sf-bay-french-total.jpg",
+            "/historic/4-2-4b-1869-sf-eastern-waterlots-financialdist-tel-hill-manu.jpg",
+            "/historic/4-2-4c-1852-waterlots.png",
+            "/historic/4-2-4e-waterlot-catalog.jpg",
+            "/historic/4-2-4f-1854-water-lot-auction-catalog-title-page-n-manuscrip.jpeg"
+          ],
+          "sideStories": []
+        },
+        {
+          "id": "4.2.5",
+          "year": "1866–1870",
+          "title": "Post Civil War; the railroad arrives",
+          "images": [
+            "/historic/4-2-5a-1869-uscs-sf-dpw-version.jpg",
+            "/historic/4-2-5b-1869-sf-view-east.jpeg",
+            "/historic/4-2-5c-photo-1867-sf-waterfront-scan.jpg",
+            "/historic/4-2-5d-1869-san-francisco-maritime-view.jpg"
+          ],
+          "sideStories": []
+        }
+      ]
+    },
+    {
+      "id": "4.3",
+      "range": "1871 – 1915",
+      "title": "Collapse, Gilded Age, Quake & Exposition",
+      "events": [
+        {
+          "id": "4.3.1",
+          "year": "1871–1874",
+          "title": "Silver collapse; economic/real-estate collapse; port authority",
+          "images": [
+            "/historic/4-3-1a-1871-san-francisco-city-hall-lots.jpg",
+            "/historic/4-3-1f-jpg.jpg",
+            "/historic/4-3-1g.jpg"
+          ],
+          "sideStories": []
+        },
+        {
+          "id": "4.3.2",
+          "year": "1875–1889",
+          "title": "The Gilded Age",
+          "images": [
+            "/historic/4-3-2a-1874-sf-bay.jpg",
+            "/historic/4-3-2b-1869-1889-sf-eastern-waterlots-financialdist-tel-hill.jpg",
+            "/historic/4-3-2c-1882-sf-pueblo-lands-july.jpeg",
+            "/historic/4-3-2d-1883-sf-waterfront-map.jpg",
+            "/historic/4-3-2e-1884-san-francisco-bancroft.jpg",
+            "/historic/4-3-2e-photo-1885-1st-ferry-bldg-in-sf.jpg",
+            "/historic/4-3-2f-1852-view-of-sf-from-yerba-buena-island.jpg"
+          ],
+          "sideStories": []
+        },
+        {
+          "id": "4.3.3",
+          "year": "1890–1905",
+          "title": "Military buildup; SF becomes a Navy city",
+          "images": [],
+          "sideStories": []
+        },
+        {
+          "id": "4.3.4",
+          "year": "1906–1910",
+          "title": "Earthquake, fire, reconstruction, Bubonic plague",
+          "images": [
+            "/historic/4-3-4d-1906-femme-san-francisco-burned-district-map.jpg",
+            "/historic/4-3-4e-1906-burned-district-in-red.jpg",
+            "/historic/4-3-4f-photo-1906-eq-fire-ferry-bldg.jpg",
+            "/historic/4-3-4g-postcard-1905-east-street-sf.jpg",
+            "/historic/4-3-4h-postcard-1906-earthquake-fire-of-sf-aftermath-ferry-b.jpg",
+            "/historic/4-3-4i-1908-geological-of-sf.jpg"
+          ],
+          "sideStories": []
+        },
+        {
+          "id": "4.3.5",
+          "year": "1911–1915",
+          "title": "Promotional period; Pan-Pacific Exposition",
+          "images": [
+            "/historic/4-3-5a-1912-chevalier-sf.jpg",
+            "/historic/4-3-5b-1912-expo-city-view.jpg",
+            "/historic/4-3-5c-1915-peter-s-ppie-expo.jpg",
+            "/historic/4-3-5d-1915-san-francisco-by-baldwin-howell-w-hand-color-cro.jpg",
+            "/historic/4-3-5d-photo-1906-san-francisco-ferry-building.jpg",
+            "/historic/4-3-5f-postcard-1915-exposition-1915.jpeg",
+            "/historic/4-3-5g-1915-chevalier-final-edition-ppie.jpg"
+          ],
+          "sideStories": []
+        }
+      ]
+    },
+    {
+      "id": "4.4",
+      "range": "1916 – 1945",
+      "title": "Bridges, Depression, War years",
+      "events": [
+        {
+          "id": "4.4.1",
+          "year": "1916–1921",
+          "title": "Economic hardship; Spanish flu; Bubonic plague",
+          "images": [
+            "/historic/4-4-1a-1920-bekins-map-of-san-francisco-w-hc.jpg"
+          ],
+          "sideStories": []
+        },
+        {
+          "id": "4.4.2",
+          "year": "1922–1929",
+          "title": "First radio station; first TV set",
+          "images": [
+            "/historic/4-4-2a-1925-bay-area-bridges-plan.jpg",
+            "/historic/4-4-2b-1927-san-francisco-by-harrison-godwin.jpeg",
+            "/historic/4-4-2c-1929-contour-map-of-sf-oshaugnessy.jpeg"
+          ],
+          "sideStories": []
+        },
+        {
+          "id": "4.4.3",
+          "year": "1930–1937",
+          "title": "Great Depression; two bridges built; Harry Bridges",
+          "images": [
+            "/historic/4-4-3a-photo-1936-sf-embarcadero-22x28.jpg",
+            "/historic/4-4-3b-photo-1936-san-francisco-bay-bridge-photo-28x36.jpg",
+            "/historic/4-4-3d-photo-1936-golden-gate-bridge-with-decl.jpeg",
+            "/historic/4-4-3e-photo-1935-golden-gate-bridge-view-from-presidio.jpeg"
+          ],
+          "sideStories": []
+        },
+        {
+          "id": "4.4.4",
+          "year": "1938–1941",
+          "title": "Treasure Island & GGIE; clipper ships; Herb Caen's column begins",
+          "images": [
+            "/historic/4-4-4a-1939-illustrated-sf.jpg"
+          ],
+          "sideStories": []
+        },
+        {
+          "id": "4.4.5",
+          "year": "1942–1945",
+          "title": "War years; the great migration; record marine ship-building",
+          "images": [
+            "/historic/4-4-5a-1940-san-francisco-port-map.jpg",
+            "/historic/4-4-5b-1945-san-francisco-by-gus-schneider-sf-parade-route-w.jpg"
+          ],
+          "sideStories": []
+        }
+      ]
+    },
+    {
+      "id": "4.5",
+      "range": "1946 – 2027",
+      "title": "Post-war to the modern Embarcadero",
+      "events": [
+        {
+          "id": "4.5.1",
+          "year": "1946–1955",
+          "title": "Post-war years; the baby boom",
+          "images": [
+            "/historic/4-5-1a-1945-chamber-sf.jpg",
+            "/historic/4-5-1b-1947-cathcart-chinatown-web-size.jpeg",
+            "/historic/4-5-1c-1948-san-francisco-nbma-northbeach.jpg",
+            "/historic/4-5-1d-pier31-embarcadero.jpeg"
+          ],
+          "sideStories": []
+        },
+        {
+          "id": "4.5.2",
+          "year": "1956–1970",
+          "title": "Giants arrive; beatniks; hippies; Herb Caen; containerization",
+          "images": [
+            "/historic/4-5-2a-1955-alcatraz-sign.jpg",
+            "/historic/4-5-2b-1955-san-francisco-by-bekins-w-hand-color.jpg",
+            "/historic/4-5-2c-1967-haight-ashbury-map.jpg",
+            "/historic/4-5-2d-1964-san-frantasia-by-albert-tolf.jpg",
+            "/historic/4-5-2e-1966-mls-map-of-san-francisco.jpg"
+          ],
+          "sideStories": []
+        },
+        {
+          "id": "4.5.3",
+          "year": "1971–1980",
+          "title": "Produce/butcher town moves south; Embarcadero Center; first VC firm",
+          "images": [
+            "/historic/4-5-3a-1974-san-francisco-by-mark-hopkins-hollman.jpg",
+            "/historic/4-5-3b-1975-san-francisco-cable-car-map-edited.jpg"
+          ],
+          "sideStories": []
+        },
+        {
+          "id": "4.5.4",
+          "year": "1981–1989",
+          "title": "Military leaves; Loma Prieta quake disables the Embarcadero Freeway",
+          "images": [],
+          "sideStories": []
+        },
+        {
+          "id": "4.5.5",
+          "year": "1990–2027",
+          "title": "Freeway removed; Ferry Building renovated; Bay Area VC goes mainstream",
+          "images": [
+            "/historic/4-5-5a-2020-buried-ships-of-sf.jpeg"
+          ],
+          "sideStories": []
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,507 @@
+/* ============================================================================
+   TimeLens — Victorian Broadsheet Design System (Direction A)
+   Single source of truth for the coded page; mirrors the Figma variables.
+   All color pairings verified WCAG 2.2 AA (see research T-001-01).
+   ============================================================================ */
+
+:root {
+  /* ── Color · paper grounds ─────────────────────────────────── */
+  --vb-paper:        #F4ECD8;   /* primary newsprint cream */
+  --vb-paper-news:   #F3ECDD;   /* lighter newsprint */
+  --vb-paper-aged:   #EDE4D3;   /* aged panel */
+  --vb-ink-ground:   #1A1A1A;   /* deepest ground (reversed sections) */
+
+  /* ── Color · ink (text) ────────────────────────────────────── */
+  --vb-ink:          #1A1A1A;   /* body ink — 14.78:1 on paper */
+  --vb-ink-soft:     #4A4036;   /* secondary —  8.58:1 */
+  --vb-ink-sepia:    #4A3826;   /* sepia ink —  9.46:1 */
+  --vb-meta:         #5C5448;   /* metadata/captions — 6.33:1 */
+
+  /* ── Color · accents ───────────────────────────────────────── */
+  --vb-vermilion:    #B33A2B;   /* primary accent — 5.01:1 on paper */
+  --vb-oxblood:      #7A2E22;   /* deep accent —    7.96:1 */
+  --vb-indigo:       #3B4A6B;   /* links —          7.50:1 */
+  --vb-gold:         #C8A04B;   /* ornament — DARK GROUNDS ONLY (7.12:1 on ink) */
+
+  /* ── Color · lines (≥3:1 graphical) ────────────────────────── */
+  --vb-rule:         #1A1A1A;   /* primary hairline / double rule */
+  --vb-rule-soft:    #8A6D4B;   /* decorative rule — 3.81:1 (rules only) */
+
+  /* ── Typography ────────────────────────────────────────────── */
+  --vb-font-masthead: 'UnifrakturCook', 'IM Fell Double Pica', serif; /* blackletter — display ONLY */
+  --vb-font-display:  'IM Fell Double Pica', 'IM Fell English', Georgia, serif;
+  --vb-font-body:     'IM Fell English', Georgia, 'Times New Roman', serif;
+  --vb-font-sc:       'IM Fell English SC', 'IM Fell English', Georgia, serif; /* small caps labels */
+
+  --vb-size-body:    17px;   /* never below 16 */
+  --vb-leading-body: 1.6;
+  --vb-measure:      42ch;   /* max line length */
+
+  /* ── Space / radius / motion ───────────────────────────────── */
+  --vb-gap:    16px;
+  --vb-gap-lg: 28px;
+  --vb-touch:  48px;         /* min touch target */
+  --vb-radius: 2px;          /* print is square; barely-there radius */
+  --vb-ease:   cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* ============================================================================
+   Base / page shell
+   ============================================================================ */
+.vb {
+  background: var(--vb-paper);
+  color: var(--vb-ink);
+  font-family: var(--vb-font-body);
+  font-size: var(--vb-size-body);
+  line-height: var(--vb-leading-body);
+  min-height: 100vh;
+  padding-bottom: 96px;            /* room for audio bar */
+  position: relative;
+  overflow-x: hidden;              /* reflow safety net at narrow widths */
+  overflow-wrap: break-word;
+  /* faint paper grain — kept OFF text via low opacity on the ground only */
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  background-size: 180px;
+}
+
+.vb *,
+.vb *::before,
+.vb *::after { box-sizing: border-box; }
+
+.vb :focus-visible {
+  outline: 2.5px solid var(--vb-indigo);
+  outline-offset: 2px;
+}
+
+/* ============================================================================
+   Masthead (blackletter nameplate) — the "wow", one per screen
+   ============================================================================ */
+.vb-masthead {
+  text-align: center;
+  padding: 22px 16px 14px;
+  background: var(--vb-paper);
+  border-bottom: 3px double var(--vb-rule);
+  position: sticky;
+  top: 0;
+  z-index: 40;
+}
+.vb-masthead__kicker {
+  font-family: var(--vb-font-sc);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--vb-meta);
+}
+.vb-masthead__name {
+  font-family: var(--vb-font-masthead);
+  font-weight: 700;
+  font-size: clamp(30px, 9vw, 40px);
+  line-height: 1.05;
+  color: var(--vb-ink);
+  margin: 2px 0 4px;
+  letter-spacing: 0.01em;
+}
+.vb-masthead__rule {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: var(--vb-font-sc);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--vb-meta);
+}
+.vb-masthead__rule::before,
+.vb-masthead__rule::after {
+  content: "";
+  height: 1px;
+  width: 36px;
+  background: var(--vb-rule);
+}
+.vb-fleuron { color: var(--vb-vermilion); font-size: 13px; }
+
+/* ============================================================================
+   Intro / dek
+   ============================================================================ */
+.vb-dek {
+  padding: 16px var(--vb-gap) 8px;
+  text-align: center;
+}
+.vb-dek__lede {
+  font-family: var(--vb-font-display);
+  font-style: italic;
+  font-size: 18px;
+  color: var(--vb-ink-soft);
+  line-height: 1.5;
+  max-width: min(var(--vb-measure), 100%);
+  margin: 0 auto;
+}
+
+/* ============================================================================
+   Printer's-rule timeline scrubber
+   ============================================================================ */
+.vb-timeline {
+  position: sticky;
+  top: 96px;                 /* under masthead */
+  z-index: 30;
+  background: var(--vb-paper-news);
+  border-top: 1px solid var(--vb-rule);
+  border-bottom: 1px solid var(--vb-rule);
+  padding: 10px 8px 8px;
+}
+.vb-timeline__track {
+  display: flex;
+  align-items: stretch;
+  position: relative;
+}
+.vb-timeline__tick {
+  flex: 1;
+  min-height: var(--vb-touch);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--vb-font-sc);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--vb-meta);
+  padding: 4px 2px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 5px;
+}
+.vb-timeline__tick::before {       /* the ruler mark */
+  content: "";
+  width: 2px;
+  height: 14px;
+  background: var(--vb-rule);
+}
+.vb-timeline__tick[aria-current="true"] { color: var(--vb-vermilion); }
+.vb-timeline__tick[aria-current="true"]::before {
+  background: var(--vb-vermilion);
+  height: 20px;
+  width: 3px;
+}
+.vb-timeline__year { font-size: 11px; font-weight: 700; }
+.vb-timeline__base {
+  height: 1px;
+  background: var(--vb-rule);
+  margin-top: -1px;
+}
+.vb-timeline__dot {            /* reading-progress: read chapters get a filled dot */
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  margin-top: 3px;
+  background: var(--vb-vermilion);
+}
+.vb-timeline__dot--unread {
+  background: transparent;
+  border: 1px solid var(--vb-rule-soft);
+}
+.vb-sr {                       /* screen-reader-only — pairs progress meaning with text, not color alone */
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ============================================================================
+   Period section + masthead card (accordion)
+   ============================================================================ */
+.vb-period { border-bottom: 3px double var(--vb-rule); }
+.vb-period__head {
+  width: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  padding: 20px var(--vb-gap) 16px;
+  display: block;
+}
+.vb-period__no {
+  font-family: var(--vb-font-display);
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  color: var(--vb-vermilion);
+  text-transform: uppercase;
+}
+.vb-period__title {
+  font-family: var(--vb-font-display);
+  font-weight: 700;
+  font-size: clamp(21px, 6.4vw, 26px);
+  line-height: 1.15;
+  color: var(--vb-ink);
+  margin: 4px 0 6px;
+}
+.vb-period__range {
+  font-family: var(--vb-font-sc);
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--vb-meta);
+}
+.vb-period__toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  font-family: var(--vb-font-sc);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--vb-indigo);
+}
+.vb-period__chev { transition: transform 0.3s var(--vb-ease); }
+.vb-period[data-open="true"] .vb-period__chev { transform: rotate(180deg); }
+
+.vb-period__events {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.4s var(--vb-ease);
+}
+.vb-period[data-open="true"] .vb-period__events { grid-template-rows: 1fr; }
+.vb-period__events-inner { overflow: hidden; }
+
+/* ============================================================================
+   Event "article" block
+   ============================================================================ */
+.vb-article {
+  padding: 18px var(--vb-gap) 4px;
+  border-top: 1px solid var(--vb-rule-soft);
+}
+.vb-article:first-child { border-top: none; }
+
+.vb-article__dateline {
+  font-family: var(--vb-font-sc);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--vb-oxblood);
+  margin-bottom: 8px;
+}
+.vb-article__body {
+  font-family: var(--vb-font-body);
+  font-size: var(--vb-size-body);
+  line-height: var(--vb-leading-body);
+  color: var(--vb-ink);
+  max-width: min(var(--vb-measure), 100%);
+}
+.vb-article__body--lead::first-letter {
+  float: left;
+  font-family: var(--vb-font-display);
+  font-size: 3.4em;
+  line-height: 0.74;
+  padding: 6px 8px 0 0;
+  color: var(--vb-vermilion);
+}
+.vb-article__end {
+  text-align: center;
+  color: var(--vb-meta);
+  font-size: 15px;
+  letter-spacing: 0.3em;
+  margin: 12px 0 4px;
+}
+
+/* ============================================================================
+   "Living image" hero — Ken Burns + grain + sepia→color reveal + flicker
+   ============================================================================ */
+.vb-figure {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  background: var(--vb-ink-ground);
+  border: 1px solid var(--vb-rule);
+  margin-bottom: 10px;
+}
+.vb-figure__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: sepia(0.82) contrast(1.05) brightness(0.95);
+  transform: scale(1.0);
+  transition: filter 1.6s ease;
+  animation: vb-kenburns 26s ease-in-out infinite alternate;
+}
+.vb-figure.is-alive .vb-figure__img { filter: sepia(0) contrast(1) brightness(1); }
+
+.vb-figure__grain {       /* animated film grain — image area only */
+  position: absolute;
+  inset: -100%;
+  width: 300%;
+  height: 300%;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  opacity: 0.10;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  animation: vb-grain 0.6s steps(6) infinite;
+}
+.vb-figure__halftone {    /* faint engraving dots */
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(26,22,17,0.55) 28%, transparent 30%);
+  background-size: 4px 4px;
+  mix-blend-mode: multiply;
+  opacity: 0.18;
+  pointer-events: none;
+}
+.vb-figure__vignette {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at center, transparent 55%, rgba(26,22,17,0.4) 100%);
+  pointer-events: none;
+}
+.vb-figure__alive-tag {   /* "tap to bring alive" affordance */
+  position: absolute;
+  top: 8px; right: 8px;
+  font-family: var(--vb-font-sc);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--vb-gold);
+  background: rgba(26,22,17,0.7);
+  border: 1px solid var(--vb-gold);
+  padding: 3px 8px;
+  pointer-events: none;
+}
+.vb-cutline {
+  font-family: var(--vb-font-body);
+  font-style: italic;
+  font-size: 13px;
+  color: var(--vb-meta);
+  line-height: 1.4;
+  margin-bottom: 12px;
+}
+
+@keyframes vb-kenburns {
+  0%   { transform: scale(1.0) translate3d(0,0,0); }
+  100% { transform: scale(1.12) translate3d(-3%,-2%,0); }
+}
+@keyframes vb-grain {
+  0%,100% { transform: translate(0,0); }
+  20% { transform: translate(-8%,5%); }
+  40% { transform: translate(6%,-9%); }
+  60% { transform: translate(-5%,8%); }
+  80% { transform: translate(9%,-4%); }
+}
+
+/* ============================================================================
+   "Column inch" side-stories
+   ============================================================================ */
+.vb-sidestory {
+  background: var(--vb-paper-aged);
+  border: 1px solid var(--vb-rule);
+  border-left: 4px solid var(--vb-vermilion);
+  padding: 12px 14px;
+  margin: 12px 0;
+}
+.vb-sidestory__kicker {
+  font-family: var(--vb-font-sc);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--vb-vermilion);
+  display: block;
+  margin-bottom: 4px;
+}
+.vb-sidestory__title {
+  font-family: var(--vb-font-display);
+  font-weight: 700;
+  font-size: 17px;
+  color: var(--vb-ink);
+  line-height: 1.2;
+  margin-bottom: 4px;
+}
+.vb-sidestory__body {
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--vb-ink-soft);
+}
+.vb-sidestory__more {
+  font-family: var(--vb-font-sc);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--vb-indigo);
+  background: none;
+  border: none;
+  padding: 6px 0 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+}
+.vb-manicule { font-size: 15px; color: var(--vb-oxblood); }
+
+/* ============================================================================
+   Phonograph audio bar (mock) — fixed bottom
+   ============================================================================ */
+.vb-audio {
+  position: fixed;
+  bottom: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 100%; max-width: 430px;
+  background: var(--vb-ink-ground);
+  border-top: 2px solid var(--vb-gold);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  z-index: 60;
+}
+.vb-audio__btn {
+  width: var(--vb-touch);
+  height: var(--vb-touch);
+  border-radius: 50%;
+  background: var(--vb-paper);
+  border: 2px solid var(--vb-gold);
+  color: var(--vb-ink-ground);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.vb-audio__meta { flex: 1; min-width: 0; color: var(--vb-paper); }
+.vb-audio__label {
+  font-family: var(--vb-font-sc);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--vb-gold);
+}
+.vb-audio__title {
+  font-family: var(--vb-font-body);
+  font-size: 14px;
+  color: var(--vb-paper);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.vb-audio__stylus {       /* hairline that tracks on play */
+  height: 2px;
+  background: var(--vb-gold);
+  margin-top: 5px;
+  transform-origin: left;
+  transform: scaleX(0.12);
+}
+.vb-audio.is-playing .vb-audio__stylus { animation: vb-stylus 18s linear forwards; }
+@keyframes vb-stylus { to { transform: scaleX(1); } }
+
+/* ============================================================================
+   Reduced motion — kill all decorative motion, keep static colorized stills
+   ============================================================================ */
+@media (prefers-reduced-motion: reduce) {
+  .vb-figure__img { animation: none !important; transform: none !important; filter: sepia(0) contrast(1) brightness(1); }
+  .vb-figure__grain { animation: none !important; }
+  .vb-audio__stylus { animation: none !important; }
+  .vb-period__events { transition: none !important; }
+}
