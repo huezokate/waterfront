@@ -4,45 +4,13 @@
    All color pairings verified WCAG 2.2 AA (see research T-001-01).
    ============================================================================ */
 
+/* Design tokens are GENERATED from src/design/tokens.json (run `npm run tokens`).
+   This @import pulls in all --vb-* colour/font/size/space/radius custom properties. */
+@import './tokens.generated.css';
+
 :root {
-  /* ── Color · paper grounds ─────────────────────────────────── */
-  --vb-paper:        #F4ECD8;   /* primary newsprint cream */
-  --vb-paper-news:   #F3ECDD;   /* lighter newsprint */
-  --vb-paper-aged:   #EDE4D3;   /* aged panel */
-  --vb-ink-ground:   #1A1A1A;   /* deepest ground (reversed sections) */
-
-  /* ── Color · ink (text) ────────────────────────────────────── */
-  --vb-ink:          #1A1A1A;   /* body ink — 14.78:1 on paper */
-  --vb-ink-soft:     #4A4036;   /* secondary —  8.58:1 */
-  --vb-ink-sepia:    #4A3826;   /* sepia ink —  9.46:1 */
-  --vb-meta:         #5C5448;   /* metadata/captions — 6.33:1 */
-
-  /* ── Color · accents ───────────────────────────────────────── */
-  --vb-vermilion:    #B33A2B;   /* primary accent — 5.01:1 on paper */
-  --vb-oxblood:      #7A2E22;   /* deep accent —    7.96:1 */
-  --vb-indigo:       #3B4A6B;   /* links —          7.50:1 */
-  --vb-gold:         #C8A04B;   /* ornament — DARK GROUNDS ONLY (7.12:1 on ink) */
-
-  /* ── Color · lines (≥3:1 graphical) ────────────────────────── */
-  --vb-rule:         #1A1A1A;   /* primary hairline / double rule */
-  --vb-rule-soft:    #8A6D4B;   /* decorative rule — 3.81:1 (rules only) */
-
-  /* ── Typography ────────────────────────────────────────────── */
-  --vb-font-masthead: 'UnifrakturCook', 'IM Fell Double Pica', serif; /* blackletter — display ONLY */
-  --vb-font-display:  'IM Fell Double Pica', 'IM Fell English', Georgia, serif;
-  --vb-font-body:     'IM Fell English', Georgia, 'Times New Roman', serif;
-  --vb-font-sc:       'IM Fell English SC', 'IM Fell English', Georgia, serif; /* small caps labels */
-
-  --vb-size-body:    17px;   /* never below 16 */
-  --vb-leading-body: 1.6;
-  --vb-measure:      42ch;   /* max line length */
-
-  /* ── Space / radius / motion ───────────────────────────────── */
-  --vb-gap:    16px;
-  --vb-gap-lg: 28px;
-  --vb-touch:  48px;         /* min touch target */
-  --vb-radius: 2px;          /* print is square; barely-there radius */
-  --vb-ease:   cubic-bezier(0.22, 0.61, 0.36, 1);
+  /* non-token: motion easing (kept local, not part of the token set) */
+  --vb-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
 /* ============================================================================
@@ -567,6 +535,33 @@
 }
 .vb-audio.is-playing .vb-audio__stylus { animation: vb-stylus 18s linear forwards; }
 @keyframes vb-stylus { to { transform: scaleX(1); } }
+
+/* ============================================================================
+   Library / Style-guide page (renders from tokens.json)
+   ============================================================================ */
+.vb-kit { padding: 0 16px; }
+.vb-kit code { font-family: ui-monospace, monospace; font-size: 0.85em; color: var(--vb-oxblood); }
+.vb-kit__h {
+  font-family: var(--vb-font-sc); font-size: 12px;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--vb-vermilion);
+  padding: 20px 0 12px; border-top: 1px solid var(--vb-rule-soft); margin-top: 12px;
+}
+.vb-kit__swatches { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.vb-kit__sw { border: 1px solid var(--vb-rule); background: var(--vb-paper-news); }
+.vb-kit__chip { height: 46px; }
+.vb-kit__meta { padding: 6px 9px 8px; }
+.vb-kit__name { font-family: var(--vb-font-sc); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--vb-ink); }
+.vb-kit__hex { font-family: var(--vb-font-body); font-size: 12px; color: var(--vb-meta); }
+.vb-kit__figma { font-family: var(--vb-font-body); font-size: 11px; color: var(--vb-indigo); }
+.vb-kit__type { padding-bottom: 14px; }
+.vb-kit__spec { font-family: var(--vb-font-sc); font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--vb-meta); margin: 6px 0; }
+.vb-kit__row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; padding-bottom: 6px; }
+.vb-kit__btn {
+  min-height: 44px; padding: 10px 18px; border: none; cursor: pointer;
+  background: var(--vb-ink-ground); color: var(--vb-gold);
+  font-family: var(--vb-font-sc); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;
+}
+.vb-kit__btn--text { background: none; color: var(--vb-indigo); padding: 10px 4px; }
 
 /* ============================================================================
    Explore / browse (multi-location)

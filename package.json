@@ -5,6 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "tokens": "node scripts/build-tokens.mjs",
+    "tokens:sync": "node scripts/sync-figma-tokens.mjs",
+    "prebuild": "node scripts/build-tokens.mjs",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },

@@ -6,3 +6,6 @@ dist/
 # Heavy raw source archive — not needed to run the app (web copies live in public/historic/)
 JIMMY PIX/
 *.xlsx
+
+# local Figma sync dumps
+figma-vars*.json

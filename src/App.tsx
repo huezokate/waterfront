@@ -5,6 +5,7 @@ import Location from './pages/Location';
 import Scan from './pages/Scan';
 import YerbaBuena from './pages/YerbaBuena';
 import Explore from './pages/Explore';
+import Library from './pages/Library';
 
 // SVG grain filter — defined once here, referenced throughout the app via url(#grain)
 function GrainFilter() {
@@ -41,6 +42,7 @@ export default function App() {
         <Route path="/group/:id" element={<Group />} />
         <Route path="/location/:id" element={<Location />} />
         <Route path="/explore" element={<Explore />} />
+        <Route path="/library" element={<Library />} />
         <Route path="/yerba-buena" element={<YerbaBuena />} />
         <Route path="/scan" element={<Scan />} />
       </Routes>

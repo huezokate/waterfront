@@ -1,0 +1,40 @@
+/* ============================================================================
+   GENERATED FILE — do not edit by hand.
+   Source of truth: src/design/tokens.json  →  run `npm run tokens`
+   ============================================================================ */
+:root {
+  /* color */
+  --vb-paper: #F4ECD8;
+  --vb-paper-news: #F3ECDD;
+  --vb-paper-aged: #EDE4D3;
+  --vb-ink-ground: #1A1A1A;
+  --vb-ink: #1A1A1A;
+  --vb-ink-soft: #4A4036;
+  --vb-ink-sepia: #4A3826;
+  --vb-meta: #5C5448;
+  --vb-vermilion: #B33A2B;
+  --vb-oxblood: #7A2E22;
+  --vb-indigo: #3B4A6B;
+  --vb-gold: #C8A04B;
+  --vb-rule: #1A1A1A;
+  --vb-rule-soft: #8A6D4B;
+
+  /* font */
+  --vb-font-masthead: 'UnifrakturCook', 'IM Fell Double Pica', serif;
+  --vb-font-display: 'IM Fell Double Pica', 'IM Fell English', Georgia, serif;
+  --vb-font-body: 'IM Fell English', Georgia, 'Times New Roman', serif;
+  --vb-font-sc: 'IM Fell English SC', 'IM Fell English', Georgia, serif;
+
+  /* size */
+  --vb-size-body: 17px;
+  --vb-leading-body: 1.6;
+  --vb-measure: 42ch;
+
+  /* space */
+  --vb-gap: 16px;
+  --vb-gap-lg: 28px;
+  --vb-touch: 48px;
+
+  /* radius */
+  --vb-radius: 2px;
+}
