@@ -1,127 +1,77 @@
 # TimeLens — CLAUDE.md
 
-Mobile-first React app for exploring San Francisco landmarks across historical eras. Users scan QR codes at real locations to see how they looked in 3–5 time periods. Nearby partner businesses (cafes, museums, shops) are shown per location.
+Mobile-first React app: a **Victorian-newspaper** historical walking-tour of San Francisco.
+Users walk the streets where events happened 100+ years ago; each spot's history is told
+through audio + text + historic imagery, with images that "come alive" (sepia→colour, Ken
+Burns). First fully-built location: **Yerba Buena Cove** (5 periods → 25 dated events).
+
+> Pivot note: an earlier version was a dark/steel-blue QR-scan app (still at route `/`,
+> legacy). All NEW work uses the **Victorian Broadsheet** design system below.
 
 ## Stack
-
-- React 18 + TypeScript + Vite
-- React Router v6
-- Plain CSS with custom properties (no Tailwind, no UI libraries)
+- React 18 + TypeScript + Vite + React Router v6 (**HashRouter** — for GitHub Pages subpath)
+- Plain CSS with custom properties (no Tailwind/UI libs)
 - Dev: `npm run dev` → `http://localhost:5173`
-- Repo: https://github.com/huezokate/timelens.git
+- Source repo: https://github.com/huezokate/timelens.git
+- **Demo repo + deploy**: https://github.com/huezokate/waterfront.git (pushed as `waterfront` remote)
 
-## Design Tokens
+## Deploy (GitHub Pages, auto)
+- `.github/workflows/deploy.yml` builds on push to `main` → Pages.
+- Vite `base: '/waterfront/'` (build only); assets via `import.meta.env.BASE_URL` (`asset()` helper in `src/lib/asset.ts`).
+- **Live:** https://huezokate.github.io/waterfront/#/explore
+- Every push to `waterfront/main` auto-updates the live site.
 
-From the Figma file (`PzEPUP1Bv0amoNA3ufvfut`). Use these exactly — do not invent new colors.
+## Routes
+- `/explore` — Victorian browse home (featured location, theme chips, location stubs, bottom nav)
+- `/yerba-buena` — the built location (periods → events → side-stories)
+- `/library` — design-system style guide (renders from `tokens.json`; links to Figma UI Kit)
+- `/` `/group/:id` `/location/:id` `/scan` — legacy old app (do not extend)
 
-```css
-/* Backgrounds */
---bg-primary:   #f6fbfd;   /* cool near-white — main app bg */
---bg-warm:      #f6f1e8;   /* warm ivory — cards, panels */
---bg-muted:     #edf2f4;   /* grey-blue — secondary surfaces */
---bg-dark:      #3c3c3e;   /* dark grey — era image overlays */
---bg-ink:       #1e1e1e;   /* near-black — deepest surfaces */
+## Design system — Victorian Broadsheet
+- **Tokens source of truth:** `src/design/tokens.json` (color/font/size/space/radius). Each token
+  has `css` (the `--vb-*` name) and `figma` (matching Figma variable name).
+- `npm run tokens` → generates `src/styles/tokens.generated.css` (**never edit by hand**).
+  Runs automatically on `prebuild`. `victorian.css` `@import`s it.
+- **Figma → code sync:** save a `get_variable_defs` dump as `figma-vars.json`, then
+  `npm run tokens:sync` → patches `tokens.json` → `npm run tokens`. See `src/design/README.md`.
+- Palette (all WCAG 2.2 AA): cream `#F4ECD8`, ink `#1A1A1A`, vermilion `#B33A2B`,
+  oxblood `#7A2E22`, indigo `#3B4A6B`, gold `#C8A04B` (dark grounds only). Full set in tokens.json.
+- Fonts (in `index.html`): UnifrakturCook (masthead, **display-only**), IM Fell English (body),
+  IM Fell English SC (labels), IM Fell Double Pica (display).
 
-/* Text */
---text-primary:   #4a4b4d;  /* charcoal — body text */
---text-secondary: #3a546b;  /* steel blue-grey — captions, metadata */
---text-on-dark:   #ffffff;  /* white — text on dark/image surfaces */
---text-accent:    #da4c29;  /* rust — highlight text */
+## Figma (file `PzEPUP1Bv0amoNA3ufvfut`)
+- **"Victorian · UI Kit"** (node `210:239`) — atomic UI kit (swatches → type → rules → controls →
+  cards) + variant components: `Chip`, `Button`, `Nav Tab`.
+- **"Victorian · Library"** (node `203:238`) — 7 composed components + Living Image variant set
+  (Dormant⇄Alive, real plate + image filters).
+- **"CLAUDE 01"** (node `192:2`) — assembled Yerba Buena page mockup.
+- Variables: "Victorian Broadsheet" collection (13 colours) + 7 text styles.
 
-/* Accents */
---accent-rust:    #da4c29;  /* primary CTA, active states */
---accent-amber:   #f1c531;  /* era year stamps, highlights */
---accent-sage:    #72ad91;  /* parks group, positive states */
---accent-steel:   #bfe2f4;  /* waterfront group, info */
---accent-steel-dark: #3a546b; /* darker steel — links, secondary CTAs */
---accent-blue:    #1079bf;  /* alert/info */
-
-/* Borders / Overlays */
---border:         rgba(74, 75, 77, 0.12);
---overlay-dark:   rgba(30, 30, 30, 0.55);
+## Key files
 ```
-
-## Typography
-
-From the Figma file. Load these fonts — they are available in Figma and via Google Fonts.
-
-| Role | Font | Weight |
-|------|------|--------|
-| Display / era labels | Cinzel | Regular, Bold |
-| Secondary display | Balthazar | Regular |
-| UI headings | Overpass | Bold |
-| Body / captions | Open Sans | Regular, Bold |
-
-```css
---font-display: 'Cinzel', serif;          /* location names, era titles, wordmark */
---font-secondary: 'Balthazar', serif;     /* taglines, historical descriptions */
---font-ui: 'Overpass', sans-serif;        /* headings, labels */
---font-body: 'Open Sans', sans-serif;     /* body text, captions, metadata */
+src/design/tokens.json          # token source of truth (+ README.md)
+src/styles/victorian.css        # all component styles (imports tokens.generated.css)
+src/styles/tokens.generated.css # GENERATED — do not edit
+src/lib/asset.ts                # BASE_URL-aware public asset paths
+src/data/yerbaBuena.json        # 5 periods → 25 events → side-stories
+src/data/sfLocations.ts         # multi-location catalog (1 live + stubs)
+src/pages/YerbaBuena.tsx        # LivingImage, ThenNow, SideStory, BottomSheet, PeriodSection, Article
+src/pages/Explore.tsx           # browse home + VbNav
+src/pages/Library.tsx           # style guide (renders from tokens.json)
+scripts/build-tokens.mjs        # tokens.json → CSS
+scripts/sync-figma-tokens.mjs   # Figma dump → tokens.json
+public/historic/                # downscaled historic plates (653MB→51MB)
 ```
-
-Add to `index.html`:
-```html
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Balthazar&family=Overpass:wght@700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
-```
-
-## File Structure
-
-```
-src/
-├── data/
-│   └── locations.ts       # All groups, locations, eras, partners — source of truth
-├── components/
-│   ├── BottomNav.tsx       # Fixed bottom bar: Route / Lens / Menu tabs
-│   ├── EraImage.tsx        # Hero image area — gradient + grain + year stamp
-│   ├── EraStrip.tsx        # Horizontal era year scrubber (pills)
-│   ├── GroupCard.tsx       # Card on Home — group name, tagline, era range, accent bar
-│   ├── LocationCard.tsx    # Row in Group view — location name, era count, years
-│   └── PartnerChip.tsx     # Horizontal chip — type icon, name, tagline
-└── pages/
-    ├── Home.tsx            # 2×2 group grid + hero header + scan CTA
-    ├── Group.tsx           # Group hero + location list + partners strip
-    ├── Location.tsx        # Era carousel + detail text + partners + more locations
-    └── Scan.tsx            # QR viewfinder placeholder
-```
-
-## Data Shape
-
-```ts
-Group      → id, name, tagline, locationCount, eraRange, accentColor
-Location   → id, name, groupId, eras[], partners[]
-Era        → year, label, description, gradientKey
-Partner    → id, name, type (cafe|museum|shop|attraction), tagline, since?
-```
-
-4 groups · 15 locations · 5 eras each · 3 partners each — all in `src/data/locations.ts`.
-
-Era gradient keys: `'1770s' | '1850s' | '1890s' | '1920s' | '1950s' | '1980s' | '2020s'`
-Mapped in `ERA_GRADIENTS` in `locations.ts`. Use warm ivory-to-sepia tones, not dark cinema.
-
-## Figma
-
-- File: `PzEPUP1Bv0amoNA3ufvfut` (Time-Lens-Fig)
-- Prototype screens: page "NEW" (node `109:242`) — Home, SF Waterfront, Pier 43, Scan
-- First App draft reference: page "Design" (node `109:241`)
-- Existing Figma components to reuse by ID:
-  - `Menu bottom bar` — `15:940` (variants: route selected `15:939`, photo `15:938`, select routes `15:937`)
-  - `Locations - partners` — `13:568` (variants: Locations `13:566`, Partners `13:567`)
-  - `Pier 43 - years` — `15:1151`
 
 ## Conventions
-
-- Mobile-first: app shell max-width `430px`, centered
-- Bottom nav is `position: fixed`, height `64px` → pages need `padding-bottom: 80px`
-- Era image crossfade: fade out → swap gradient → fade in, CSS `opacity` transition 250ms
-- Horizontal strips (era scrubber, partner chips): `overflow-x: auto; scrollbar-width: none`
-- Group accent color drives the card's accent bar and era strip active pill
-- Partner type icons: cafe ☕ · museum 🏛 · shop 🛍 · attraction ⛵
+- Mobile-first; app shell max-width 430px.
+- No hardcoded colours outside `tokens.json` / `--vb-*` vars.
+- All motion wrapped in `@media (prefers-reduced-motion: reduce)`.
+- 48px touch targets; body ≥16px; reflow clean at 320px (fluid `clamp()` display type).
+- "Living image" = CSS Ken Burns + grain + sepia→colour-on-scroll (no real video yet).
 
 ## Do Not
-
-- Do not use Tailwind or any CSS framework
-- Do not hardcode colors outside of `index.css` tokens
-- Do not add a real camera/QR API yet — Scan page is a placeholder
-- Do not change the data structure without updating both `locations.ts` types and all consuming pages
-- Do not use the dark near-black palette (`#0c0c0e`) — the Figma palette is light ivory/steel
+- Edit `tokens.generated.css` by hand (regenerate from `tokens.json`).
+- Reintroduce the old dark/steel-blue palette for Victorian work.
+- Commit `JIMMY PIX/` or `*.xlsx` (gitignored — raw source archive).
+- Use BrowserRouter (Pages needs HashRouter) or absolute `/historic/...` (use `asset()`).
